@@ -14,6 +14,12 @@ Implemented features:
 
 See `cli/README.md` for implementation details and usage instructions.
 
+
+
+
+
+# Old Message
+
 A take-home assignment: build a command-line tool that talks to a provided
 Products API.
 

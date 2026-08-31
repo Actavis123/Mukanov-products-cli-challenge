@@ -36,6 +36,11 @@ uv run products-cli products update --id 2 --discount 15
 uv run products-cli products batch-update --section electronics --discount 20
 ```
 
+
+
+
+## Old Message
+
 Build a command-line tool that talks to the Products API in [`../server`](../server).
 This folder (`cli/`) is where you implement your solution. You are free to
 **modify the server too** if your approach calls for it — just explain what you
