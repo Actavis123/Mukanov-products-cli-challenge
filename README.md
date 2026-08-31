@@ -1,5 +1,19 @@
 # Products CLI Challenge
 
+## Candidate Solution
+
+The challenge solution can be found in the `cli/` directory.
+
+Implemented features:
+- Authentication with persisted access and refresh tokens
+- Automatic token refresh and request retry on HTTP 401
+- Product listing with filtering and pagination
+- Get, create, update, and delete product commands
+- Client-side batch discount updates
+- JSON output and error handling
+
+See `cli/README.md` for implementation details and usage instructions.
+
 A take-home assignment: build a command-line tool that talks to a provided
 Products API.
 

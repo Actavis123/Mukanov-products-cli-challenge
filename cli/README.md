@@ -1,5 +1,41 @@
 # Products CLI — Assignment
 
+## Implementation notes
+
+This implementation uses Python's own `argparse` for the CLI and `httpx`
+for API communication.
+
+Authentication data is stored under the current user's home directory:
+
+`~/.products-cli/config.json`
+
+The stored config contains:
+- API base URL
+- access token
+- refresh token
+
+The access token is automatically refreshed after an authenticated request
+returns HTTP 401. The new access and refresh tokens are persisted, and the
+original request is retried once.
+
+`products batch-update` is implemented client-side since the server does not
+provide a batch endpoint. The CLI fetches all matching products page by page
+and sends an individual PATCH request for each product.
+
+Example setup:
+
+```bash
+cd cli
+uv sync
+uv run products-cli --help
+uv run products-cli login --base-url http://localhost:8000 --username demo --password password123
+uv run products-cli products list --section electronics
+uv run products-cli products get --id 2
+uv run products-cli products create --name "USB Hub" --section electronics --price 35
+uv run products-cli products update --id 2 --discount 15
+uv run products-cli products batch-update --section electronics --discount 20
+```
+
 Build a command-line tool that talks to the Products API in [`../server`](../server).
 This folder (`cli/`) is where you implement your solution. You are free to
 **modify the server too** if your approach calls for it — just explain what you
@@ -206,38 +242,3 @@ care about the result and your reasoning, not the clock.
 
 If you're short on time, prioritise `login`, `products list` (with filters), and
 the refresh flow.
-
-## Implementation notes
-
-This implementation uses Python's built-in `argparse` for the CLI and `httpx`
-for communication with the API.
-
-Authentication data is stored under the current user's home directory:
-
-`~/.products-cli/config.json`
-
-The stored config contains:
-- API base URL
-- access token
-- refresh token
-
-The access token is automatically refreshed after an authenticated request
-returns HTTP 401. The new access and refresh tokens are persisted, and the
-original request is retried once.
-
-`products batch-update` is implemented client-side because the server does not
-provide a batch endpoint. The CLI fetches all matching products page by page
-and sends an individual PATCH request for each product.
-
-Example setup:
-
-```bash
-cd cli
-uv sync
-uv run products-cli --help
-uv run products-cli login --base-url http://localhost:8000 --username demo --password password123
-uv run products-cli products list --section electronics
-uv run products-cli products get --id 2
-uv run products-cli products create --name "USB Hub" --section electronics --price 35
-uv run products-cli products update --id 2 --discount 15
-uv run products-cli products batch-update --section electronics --discount 20
